@@ -5,6 +5,7 @@
 
 #define WAVEFORM_POT A0
 #define PITCH_POT A1
+#define VOLUME_POT A2
 
 #define ADDR_CTRL0 0b0101
 #define ADDR_CTRL1 0b0110

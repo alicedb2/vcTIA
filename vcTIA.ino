@@ -2,6 +2,7 @@
 
 int last_wf = -1;
 int last_pitch = -1;
+int last_volume = -1;
 
 void setup()
 {
@@ -12,7 +13,8 @@ void setup()
 
   pinMode(WAVEFORM_POT, INPUT);
   pinMode(PITCH_POT, INPUT);
-
+  pinMode(VOLUME_POT, INPUT);
+  
   Serial.begin(115200);
   Serial.flush();
 
@@ -26,22 +28,25 @@ void setup()
 void loop()
 {
 
-  int wf_read = analogRead(WAVEFORM_POT);
-  int wf = map(wf_read, 0, 1024, 0, 16);
-
-  int pitch_read = analogRead(PITCH_POT);
-  int pitch = map(pitch_read, 0, 1024, 0, 32);
-
+  int wf = map(analogRead(WAVEFORM_POT), 0, 1024, 0, 16);
   if (last_wf != wf) {
     last_wf = wf;
     setWaveform(2, wf);
     Serial.print("Waveform "); Serial.println(wf);
   }
 
+  int pitch = map(analogRead(PITCH_POT), 0, 1024, 0, 32);
   if (last_pitch != pitch) {
     last_pitch = pitch;
     setPitch(2, pitch);
     Serial.print("Pitch "); Serial.println(30000/(pitch + 1));
+  }
+
+  int volume = map(analogRead(VOLUME_POT), 0, 1024, 0, 16);
+  if (last_volume != volume) {
+    last_volume = volume;
+    setVolume(2, volume);
+    Serial.print("Volume "); Serial.println(volume);
   }
 
 }
